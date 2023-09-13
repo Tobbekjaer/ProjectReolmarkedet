@@ -16,6 +16,7 @@ namespace ProjectReolmarkedet
 			get { return _paymentDetails; }
 			set { _paymentDetails = value; }
 		}
+
 		// Constructor
 		public Customer(int paymentDetails) 
 		{
