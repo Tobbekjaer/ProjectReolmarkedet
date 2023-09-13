@@ -28,6 +28,7 @@ namespace ProjectReolmarkedet
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
+            // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
             try {
                 if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text))) {
                     MessageBox.Show("Alle felter skal være udfyldt");

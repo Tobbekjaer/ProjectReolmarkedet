@@ -37,7 +37,8 @@ namespace ProjectReolmarkedet
             // Create an instance of the dialog window
             RegisterProductDialog dialog = new RegisterProductDialog();
 
-            if(dialog.ShowDialog() == true ) {
+            // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
+            if (dialog.ShowDialog() == true ) {
                 Product product = new Product(dialog.tbProduct.Text, Convert.ToInt32(dialog.tbPrice.Text));
             }
 
@@ -45,6 +46,8 @@ namespace ProjectReolmarkedet
             IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
             string connectionString = config.GetConnectionString("MyDBConnection");
 
+
+            
 
             //if (dialog.ShowDialog() == true) {
             //    Flowersort flowersort = new Flowersort(
