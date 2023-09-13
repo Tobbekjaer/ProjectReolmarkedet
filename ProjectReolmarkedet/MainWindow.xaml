@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectReolmarkedet"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="200" Width="400">
     <Grid>
+        <Label Content="Velkommen til Reolmarkedet!" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top"/>
+        <Button Content="Opret produkt" HorizontalAlignment="Left" Margin="70,112,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Start salg" HorizontalAlignment="Left" Margin="255,112,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

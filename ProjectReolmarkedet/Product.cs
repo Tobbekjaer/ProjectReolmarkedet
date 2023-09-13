@@ -23,7 +23,6 @@ namespace ProjectReolmarkedet
 			get { return _price; }
 			set { _price = value; }
 		}
-		private int _barcode;
 
 
 		// Constructor

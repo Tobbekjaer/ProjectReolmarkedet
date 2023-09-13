@@ -1,0 +1,21 @@
+﻿<Window x:Class="ProjectReolmarkedet.RegisterProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectReolmarkedet"
+        mc:Ignorable="d"
+        Title="RegisterProductDialog" Height="400" Width="600">
+    <Grid>
+        <Label Content="Vare:" HorizontalAlignment="Left" Margin="73,85,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pris:" HorizontalAlignment="Left" Margin="73,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbProduct" HorizontalAlignment="Left" Margin="133,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="133,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Afslut" HorizontalAlignment="Left" Margin="373,308,0,0" VerticalAlignment="Top" Height="38" Width="62"/>
+        <Button Content="Fortryd" HorizontalAlignment="Left" Margin="479,308,0,0" VerticalAlignment="Top" Height="38" Width="62"/>
+        <TextBox HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
+        <Label Content="Produkter:" HorizontalAlignment="Left" Margin="373,54,0,0" VerticalAlignment="Top"/>
+        <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="154,227,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
+
+    </Grid>
+</Window>
