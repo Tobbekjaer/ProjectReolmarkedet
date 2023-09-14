@@ -10,40 +10,40 @@ namespace ProjectReolmarkedet
 {
     public class Product
     {
-		// Properties
-		private string _productName;
+        // Properties
+        private string _productName;
 
-		public string ProductName
-		{
-			get { return _productName; }
-			set { _productName = value; }
-		}
-		private double _price;
+        public string ProductName
+        {
+            get { return _productName; }
+            set { _productName = value; }
+        }
+        private double _price;
 
-		public double Price
-		{
-			get { return _price; }
-			set { _price = value; }
-		}
+        public double Price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
 
-		// Constructor
-		public Product(string productName, double price)	
-		{
-			_productName = productName;
-			_price = price;
-		}
+        // Constructor
+        public Product(string productName, double price)
+        {
+            _productName = productName;
+            _price = price;
+        }
 
-		public void InsertIntoDatabase(string connectionString)
-		{
+        public void InsertIntoDatabase(string connectionString)
+        {
             using (SqlConnection connection = new SqlConnection(connectionString)) {
                 connection.Open();
 
                 // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                string insertQuery = "INSERT INTO PRODUCT (ProductName, Price) VALUES @(ProductName, @Price)"; 
+                string insertQuery = "INSERT INTO PRODUCT (ProductName, Price) VALUES @(ProductName, @Price)";
 
-                using(SqlCommand  command = new SqlCommand(insertQuery, connection)) {
+                using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
                     command.Parameters.AddWithValue("@ProductName", _productName);
-                    command.Parameters.AddWithValue("@Price", _price); 
+                    command.Parameters.AddWithValue("@Price", _price);
                 }
 
             }
@@ -53,26 +53,27 @@ namespace ProjectReolmarkedet
 
 
 
-            //    // Skriver SQL i C#. Husk at Tabellen Flowersorts skal laves i MSSMS og have de samme colonne navne som i Flowersorts
-            //    public void InsertIntoDatabase(string connectionString)
-            //    {
-            //        using (SqlConnection connection = new SqlConnection(connectionString)) {
-            //            connection.Open();
+        //    // Skriver SQL i C#. Husk at Tabellen Flowersorts skal laves i MSSMS og have de samme colonne navne som i Flowersorts
+        //    public void InsertIntoDatabase(string connectionString)
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(connectionString)) {
+        //            connection.Open();
 
-            //            string insertQuery = "INSERT INTO FlowerSort (FlowerName, ProductionTimeInDays, HalfLife, SizeInSquareMeters) VALUES (@FlowerName, @ProductionTimeInDays, @HalfLife, @SizeInSquareMeters)";
+        //            string insertQuery = "INSERT INTO FlowerSort (FlowerName, ProductionTimeInDays, HalfLife, SizeInSquareMeters) VALUES (@FlowerName, @ProductionTimeInDays, @HalfLife, @SizeInSquareMeters)";
 
-            //            using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
-            //                command.Parameters.AddWithValue("@FlowerName", Name);
-            //                command.Parameters.AddWithValue("@ProductionTimeInDays", ProductionTime);
-            //                command.Parameters.AddWithValue("@HalfLife", HalfLife);
-            //                command.Parameters.AddWithValue("@SizeInSquareMeters", Size);
+        //            using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
+        //                command.Parameters.AddWithValue("@FlowerName", Name);
+        //                command.Parameters.AddWithValue("@ProductionTimeInDays", ProductionTime);
+        //                command.Parameters.AddWithValue("@HalfLife", HalfLife);
+        //                command.Parameters.AddWithValue("@SizeInSquareMeters", Size);
 
-            //                command.ExecuteNonQuery();
-            //            }
-            //        }
-            //    }
+        //                command.ExecuteNonQuery();
+        //            }
+        //        }
+        //    }
 
 
 
-            //}
-        }
+        //}
+    }
+}

@@ -47,26 +47,27 @@ namespace ProjectReolmarkedet
             string connectionString = config.GetConnectionString("MyDBConnection");
 
 
-            
 
-            //if (dialog.ShowDialog() == true) {
-            //    Flowersort flowersort = new Flowersort(
-            //    dialog.tbName.Text,
-            //    Convert.ToInt32(dialog.tbProductionTime.Text),
-            //    Convert.ToInt32(dialog.tbHalfLife.Text),
-            //    Convert.ToDouble(dialog.tbSize.Text));
-
-            //    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-            //    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-            //    string connectionString = config.GetConnectionString("MyDBConnection");
-
-            //    // kaller metoden og Gemmer informationen i databsen
-            //    flowersort.InsertIntoDatabase(connectionString);
-
-            //    flowersorts.Add(flowersort);
-            //}
-            //AddToTextBlock();
 
         }
+
+        //if (dialog.ShowDialog() == true) {
+        //    Flowersort flowersort = new Flowersort(
+        //    dialog.tbName.Text,
+        //    Convert.ToInt32(dialog.tbProductionTime.Text),
+        //    Convert.ToInt32(dialog.tbHalfLife.Text),
+        //    Convert.ToDouble(dialog.tbSize.Text));
+
+        //    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+        //    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+        //    string connectionString = config.GetConnectionString("MyDBConnection");
+
+        //    // kaller metoden og Gemmer informationen i databsen
+        //    flowersort.InsertIntoDatabase(connectionString);
+
+        //    flowersorts.Add(flowersort);
+        //}
+        //AddToTextBlock();
+
     }
 }
