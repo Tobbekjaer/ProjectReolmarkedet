@@ -30,7 +30,7 @@ namespace ProjectReolmarkedet
         {
             // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
             try {
-                if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) || string.IsNullOrEmpty(Convert.ToString(tbOwner.Text))) {
+                if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRackOwner.Text))) {
                     MessageBox.Show("Alle felter skal være udfyldt");
                 }
                 else {

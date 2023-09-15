@@ -16,7 +16,7 @@
         <TextBox HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
         <Label Content="Produkter:" HorizontalAlignment="Left" Margin="373,54,0,0" VerticalAlignment="Top"/>
         <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="154,227,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
-        <TextBox x:Name="tbOwner" HorizontalAlignment="Left" Margin="133,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="tbRackOwner" HorizontalAlignment="Left" Margin="133,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <Label x:Name="lOwner" Content="Reollejer:" HorizontalAlignment="Left" Margin="73,0,0,0" VerticalAlignment="Center"/>
 
     </Grid>
