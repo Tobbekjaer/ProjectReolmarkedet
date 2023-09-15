@@ -9,20 +9,20 @@ namespace ProjectReolmarkedet
 {
     public class Rack
     {
-		// Properties
-		private int _rackNumber;
+        // Properties
+        private int _rackNumber;
 
-		public int RackNumber
-		{
-			get { return _rackNumber; }
-			set { _rackNumber = value; }
-		}
+        public int RackNumber
+        {
+            get { return _rackNumber; }
+            set { _rackNumber = value; }
+        }
 
-		// Constructor
-		public Rack(int rackNumber)
-		{
-			_rackNumber = rackNumber;
-		}
+        // Constructor
+        public Rack(int rackNumber)
+        {
+            _rackNumber = rackNumber;
+        }
         public void InsertIntoDatabase(string connectionString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -38,4 +38,5 @@ namespace ProjectReolmarkedet
 
             }
         }
+    }
 }
