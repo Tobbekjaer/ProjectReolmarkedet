@@ -40,7 +40,9 @@ namespace ProjectReolmarkedet
             // Create an instance of the dialog window
             RegisterProductDialog dialog = new RegisterProductDialog();
             dialog.ShowDialog();
-
+           
+           
+                
             //// Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
             //if (dialog.ShowDialog() == true) {
             //    Product product = new Product(

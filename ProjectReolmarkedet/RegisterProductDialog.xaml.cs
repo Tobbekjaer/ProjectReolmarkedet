@@ -68,7 +68,7 @@ namespace ProjectReolmarkedet
                                     MessageBox.Show("1 row affected.");
                                 }
                             }
-
+                           
                         }
                     }
                     else {
