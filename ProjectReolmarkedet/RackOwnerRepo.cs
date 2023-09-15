@@ -19,7 +19,7 @@ namespace ProjectReolmarkedet
             set { _rackOwner = value; }
         }
 
-        // AddRackOwner() method adds a new RackOwner to the list
+        // AddRackOwner() method adds a new RackOwner to the list TEST
         public void AddRackOwner(RackOwner rackOwner)
         {
             _rackOwner.Add(rackOwner);
@@ -30,4 +30,5 @@ namespace ProjectReolmarkedet
 
             rackOwner.InsertIntoDatabase(connectionString);
         }
+    }
 }

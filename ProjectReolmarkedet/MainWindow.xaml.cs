@@ -35,7 +35,7 @@ namespace ProjectReolmarkedet
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Create an instance of the dialog window
-            RegisterProductDialog dialog = new RegisterProductDialog();
+            RegisterProductDialog dialog = new RegisterProductDialog(); 
 
             // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
             if (dialog.ShowDialog() == true ) {
