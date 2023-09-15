@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,5 +48,24 @@ namespace ProjectReolmarkedet
 			_bankDetails = bankDetails;
 		}
 
-	}
+        public void InsertIntoDatabase(string connectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string insertQuery = "INSERT INTO PRODUCT (Name, Phone, Email, BankDetails) VALUES (@Name, @Phone, @Email, @BankDetails)";
+
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", _name);
+                    command.Parameters.AddWithValue("@Price", _phone);
+                    command.Parameters.AddWithValue("@Price", _email);
+                    command.Parameters.AddWithValue("@Price", _bankDetails);
+                }
+
+            }
+        }
+
+    }
 }
