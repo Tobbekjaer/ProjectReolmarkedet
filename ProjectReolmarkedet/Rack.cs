@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,19 @@ namespace ProjectReolmarkedet
 		{
 			_rackNumber = rackNumber;
 		}
+        public void InsertIntoDatabase(string connectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-	}
+                string insertQuery = "INSERT INTO PRODUCT (RackNumber) VALUES (@RackNumber)";
+
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@RackNumber", _rackNumber);
+                }
+
+            }
+        }
 }
