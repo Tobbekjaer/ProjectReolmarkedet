@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows;
 
 namespace ProjectReolmarkedet
 {
@@ -25,6 +26,8 @@ namespace ProjectReolmarkedet
             get { return _price; }
             set { _price = value; }
         }
+        
+
 
         // Constructor
         public Product(string productName, double price)
@@ -39,17 +42,21 @@ namespace ProjectReolmarkedet
                 connection.Open();
 
                 // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                string insertQuery = "INSERT INTO PRODUCT (ProductName, Price) VALUES @(ProductName, @Price)";
+                string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, Rack) VALUES (@ProductName, @Price, @RackOwnerID, @Rack)";
 
                 using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
                     command.Parameters.AddWithValue("@ProductName", _productName);
                     command.Parameters.AddWithValue("@Price", _price);
+                    //command.Parameters.AddWithValue("@RackOwnerID", _rackOwnerID);
+                    //command.Parameters.AddWithValue("@Rack", _rack);
+
+                    if(command.ExecuteNonQuery() == 1) {
+                        MessageBox.Show("1 row affected.");
+                    }
                 }
 
             }
         }
-
-
 
 
 
@@ -72,8 +79,8 @@ namespace ProjectReolmarkedet
         //        }
         //    }
 
-
-
         //}
+
+
     }
 }

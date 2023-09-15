@@ -25,13 +25,22 @@ namespace ProjectReolmarkedet
         {
             _products.Add(product);
 
-            // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-            string connectionString = config.GetConnectionString("MyDBConnection");
+            //// Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+            //IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+            //string connectionString = config.GetConnectionString("MyDBConnection");
  
-            product.InsertIntoDatabase(connectionString);
+            //product.InsertIntoDatabase(connectionString);
 
         }
+
+
+        public List<Product> GetProducts()
+        {
+            return _products;
+        }
+
+
+
     }
 
 }
