@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace ProjectReolmarkedet
 {
-    class RackOwnerRepo
+    class RackRepo
     {
-        // Privat list of rack owners
-        private List<RackOwner> _rackOwner = new List<RackOwner>();
+        // Privat list of rack 
+        private List<Rack> _rack = new List<Rack>();
 
-        // Public list, to get or set rack owner from the private list
-        public List<RackOwner> RackOwner
+        // Public list, to get or set rack from the private list
+        public List<Rack> Rack
         {
-            get { return _rackOwner; }
-            set { _rackOwner = value; }
+            get { return _rack; }
+            set { _rack = value; }
         }
 
-        // AddRackOwner() method adds a new RackOwner to the list
-        public void AddRackOwner(RackOwner rackOwner)
+        // AddRack() method adds a new Rack to the list
+        public void AddRack(Rack rack)
         {
-            _rackOwner.Add(rackOwner);
+            _rack.Add(rack);
 
             // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
             IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
             string connectionString = config.GetConnectionString("MyDBConnection");
 
-            rackOwner.InsertIntoDatabase(connectionString);
+            rack.InsertIntoDatabase(connectionString);
         }
     }
 }
