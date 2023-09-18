@@ -37,18 +37,18 @@ namespace ProjectReolmarkedet
             try
             {
                 if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) ||
-                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text)))
-                {
+                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text))) 
+                    {        
                     MessageBox.Show("Alle felter skal være udfyldt");
-
+                }
                     // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
 
                     Product product = new Product(
                         tbProduct.Text,
-                        Convert.ToInt32(tbPrice.Text)
+                        Convert.ToDouble(tbPrice.Text)
                         );
                     productRepo.AddProduct(product);
-
+                    
                     // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
                     IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
                     string connectionString = config.GetConnectionString("MyDBConnection");
@@ -74,13 +74,7 @@ namespace ProjectReolmarkedet
                             }
                         }
 
-                    }
-                }
-                else
-                {
-
-                    this.DialogResult = true;
-                }
+                    } 
 
             }
             catch (Exception ex)
@@ -92,6 +86,7 @@ namespace ProjectReolmarkedet
             finally 
             {
                 ClearProduct();
+                AddToTextBlock();
             }
         }
 
@@ -111,7 +106,7 @@ namespace ProjectReolmarkedet
 
         private void btnAfslut_Click(object sender, RoutedEventArgs e)
         {
-            btnAfslut.IsCancel = true;
+            this.Close();
         }
 
         private void ClearProduct()
