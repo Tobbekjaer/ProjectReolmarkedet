@@ -34,52 +34,64 @@ namespace ProjectReolmarkedet
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
             // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-            try {
+            try
+            {
                 if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) ||
-                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text))) {
+                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text)))
+                {
                     MessageBox.Show("Alle felter skal være udfyldt");
 
                     // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                   
-                        Product product = new Product(
-                            tbProduct.Text,
-                            Convert.ToInt32(tbPrice.Text)
-                            );
-                        productRepo.AddProduct(product);
 
-                        // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-                        IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-                        string connectionString = config.GetConnectionString("MyDBConnection");
-                        
+                    Product product = new Product(
+                        tbProduct.Text,
+                        Convert.ToInt32(tbPrice.Text)
+                        );
+                    productRepo.AddProduct(product);
 
-                        using (SqlConnection connection = new SqlConnection(connectionString)) {
-                            connection.Open();
+                    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+                    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+                    string connectionString = config.GetConnectionString("MyDBConnection");
 
-                            // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                            string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, Rack) VALUES (@ProductName, @Price, @RackOwnerID, @RackNumber)";
 
-                            using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
-                                command.Parameters.AddWithValue("@ProductName", tbProduct.Text);
-                                command.Parameters.AddWithValue("@Price", Convert.ToDouble(tbPrice.Text));
-                                command.Parameters.AddWithValue("@RackOwnerID", Convert.ToInt32(tbRackOwnerID.Text));
-                                command.Parameters.AddWithValue("@RackNumber", Convert.ToInt32(tbRack.Text));
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
 
-                                if (command.ExecuteNonQuery() == 1) {
-                                    MessageBox.Show("1 row affected.");
-                                }
+                        // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
+                        string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, Rack) VALUES (@ProductName, @Price, @RackOwnerID, @RackNumber)";
+
+                        using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ProductName", tbProduct.Text);
+                            command.Parameters.AddWithValue("@Price", Convert.ToDouble(tbPrice.Text));
+                            command.Parameters.AddWithValue("@RackOwnerID", Convert.ToInt32(tbRackOwnerID.Text));
+                            command.Parameters.AddWithValue("@RackNumber", Convert.ToInt32(tbRack.Text));
+
+                            if (command.ExecuteNonQuery() == 1)
+                            {
+                                MessageBox.Show("1 row affected.");
                             }
-                           
                         }
+
                     }
-                    else {
-                        
-                        this.DialogResult = true;
-                    }
-                
+                }
+                else
+                {
+
+                    this.DialogResult = true;
+                }
+
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 // Handle the exception here, e.g. display an error message to the user
                 MessageBox.Show("Der opstod en fejl: " + ex.Message);
+            }
+            // When we click "Tilføj Product" the text boxes for "Vare" and "Pris" will clear
+            finally 
+            {
+                ClearProduct();
             }
         }
 
@@ -101,5 +113,13 @@ namespace ProjectReolmarkedet
         {
             btnAfslut.IsCancel = true;
         }
+
+        private void ClearProduct()
+        {
+            tbProduct.Clear();
+            tbPrice.Clear();
+        }
+
+        
     }
 }
