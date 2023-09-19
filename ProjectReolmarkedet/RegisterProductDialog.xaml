@@ -11,8 +11,7 @@
         <Label Content="Pris:" HorizontalAlignment="Left" Margin="100,225,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbProduct" HorizontalAlignment="Left" Margin="160,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="160,233,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAfslut" Content="Afslut" HorizontalAlignment="Left" Margin="373,308,0,0" VerticalAlignment="Top" Height="38" Width="62" Click="btnAfslut_Click"/>
-        <Button Content="Fortryd" HorizontalAlignment="Left" Margin="479,308,0,0" VerticalAlignment="Top" Height="38" Width="62" Background="#FFE15353"/>
+        <Button x:Name="btnAfslut" Content="Afslut" HorizontalAlignment="Left" Margin="419,288,0,0" VerticalAlignment="Top" Height="38" Width="62" Click="btnAfslut_Click"/>
         <TextBox x:Name="tbProductList" HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
         <Label Content="Produkter:" HorizontalAlignment="Left" Margin="373,54,0,0" VerticalAlignment="Top"/>
         <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="181,285,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
