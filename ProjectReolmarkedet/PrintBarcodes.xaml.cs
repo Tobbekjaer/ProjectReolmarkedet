@@ -23,6 +23,7 @@ namespace ProjectReolmarkedet
     {
         public PrintBarcodes()
         {
+
             InitializeComponent();
         }
 
