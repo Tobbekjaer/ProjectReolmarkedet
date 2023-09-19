@@ -1,8 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,50 +25,48 @@ namespace ProjectReolmarkedet
     {
         public PrintBarcodes()
         {
-
+            // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+            string connectionString = config.GetConnectionString("MyDBConnection");
             InitializeComponent();
+            DisplayBarcodes(connectionString);
         }
 
         public void DisplayBarcodes(string connectionString)
         {
 
+            try {
+                using (SqlConnection con = new SqlConnection(connectionString)) {
 
+                    con.Open();
 
-            //string ConnectionString = ConfigurationManager.ConnectionStrings["DatabaseServerInstance"].ConnectionString;
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT", con);
 
-            //try {
-            //    using (SqlConnection con = new SqlConnection(ConnectionString)) {
+                    using (SqlDataReader reader = cmd.ExecuteReader()) {
 
-            //        con.Open();
+                       
+                            while (reader.Read()) {
 
-            //        SqlCommand cmd = new SqlCommand("SELECT FlowerName, ProductionTimeInDays, HalfLife, SizeInSquareMeters FROM FlowerSort", con);
+                                string line = "";
 
-            //        using (SqlDataReader reader = cmd.ExecuteReader()) {
-            //            while (reader.Read()) {
+                                int productID = Convert.ToInt32(reader["ProductID"].ToString());
+                                string productName = reader["ProductName"].ToString();
+                                int price = Convert.ToInt32(reader["Price"].ToString());
+                                int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
 
-            //                string line = "";
+                                line += $"Stregkode: {productID}, Produkt: {productName}, Pris: {price}, Reol: {rackNumber}\n";
+                               
+                                tbOverview.Text += line;
+                            }
 
-            //                foreach (DbDataRecord row in reader) {
+                    }
+                }
 
-            //                    string flowerName = reader["FlowerName"].ToString();
-            //                    int productionTime = int.Parse(reader["ProductionTimeInDays"].ToString());
-            //                    int halfLife = int.Parse(reader["HalfLife"].ToString());
-            //                    double size = double.Parse(reader["SizeInSquareMeters"].ToString());
-
-            //                    line += $"{flowerName}, {productionTime}, {halfLife}, {size}\n";
-
-            //                }
-
-            //                tbSorts.Text = line;
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex) {
-            //    MessageBox.Show(ex.Message);
-            //}
-
+            } catch (Exception e){
+                Console.WriteLine(e.Message);
+            }
         }
+
 
 
     }
