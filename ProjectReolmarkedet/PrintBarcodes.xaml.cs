@@ -43,7 +43,6 @@ namespace ProjectReolmarkedet
                     SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT", con);
 
                     using (SqlDataReader reader = cmd.ExecuteReader()) {
-
                        
                             while (reader.Read()) {
 
