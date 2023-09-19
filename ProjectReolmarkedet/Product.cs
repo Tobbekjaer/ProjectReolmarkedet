@@ -45,8 +45,7 @@ namespace ProjectReolmarkedet
                     command.Parameters.AddWithValue("@ProductName", _productName);
                     command.Parameters.AddWithValue("@Price", _price);
 
-                    // Execute the SQL command
-                    command.ExecuteNonQuery();
+                    
                 }
 
             }
