@@ -16,11 +16,10 @@
         <TextBox x:Name="tbProductList" HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
         <Label Content="Produkter:" HorizontalAlignment="Left" Margin="373,54,0,0" VerticalAlignment="Top"/>
         <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="181,285,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
-        <TextBox x:Name="tbRackOwnerID" HorizontalAlignment="Left" Margin="160,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lOwner" Content="Reollejer:" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbRack" HorizontalAlignment="Left" Margin="160,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lOwner_Copy" Content="Reol:" HorizontalAlignment="Left" Margin="102,85,0,0" VerticalAlignment="Top"/>
-        <Button Content="Accepter" HorizontalAlignment="Left" Margin="181,127,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
+        <TextBox x:Name="tbRackOwnerID" HorizontalAlignment="Left" Margin="160,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lOwner" Content="Reollejer:" HorizontalAlignment="Left" Margin="100,105,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbRack" HorizontalAlignment="Left" Margin="160,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lOwner_Copy" Content="Reol:" HorizontalAlignment="Left" Margin="102,149,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

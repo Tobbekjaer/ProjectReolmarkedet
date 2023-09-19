@@ -41,8 +41,8 @@ namespace ProjectReolmarkedet
                     {        
                     MessageBox.Show("Alle felter skal være udfyldt");
                 }
-                    // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
 
+                    // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
                     Product product = new Product(
                         tbProduct.Text,
                         Convert.ToDouble(tbPrice.Text)
@@ -52,21 +52,21 @@ namespace ProjectReolmarkedet
                     // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
                     IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
                     string connectionString = config.GetConnectionString("MyDBConnection");
-
-
+                    
+                    
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
 
                         // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                        string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, Rack) VALUES (@ProductName, @Price, @RackOwnerID, @RackNumber)";
+                        string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, RackNumber) VALUES (@ProductName, @Price, @RackOwnerID, @RackNumber)";
 
                         using (SqlCommand command = new SqlCommand(insertQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@ProductName", tbProduct.Text);
-                            command.Parameters.AddWithValue("@Price", Convert.ToDouble(tbPrice.Text));
-                            command.Parameters.AddWithValue("@RackOwnerID", Convert.ToInt32(tbRackOwnerID.Text));
-                            command.Parameters.AddWithValue("@RackNumber", Convert.ToInt32(tbRack.Text));
+                            command.Parameters.AddWithValue("@ProductName", tbProduct.Text.Trim());
+                            command.Parameters.AddWithValue("@Price", Convert.ToDouble(tbPrice.Text.Trim()));
+                            command.Parameters.AddWithValue("@RackOwnerID", Convert.ToInt32(tbRackOwnerID.Text.Trim()));
+                            command.Parameters.AddWithValue("@RackNumber", Convert.ToInt32(tbRack.Text.Trim()));
 
                             if (command.ExecuteNonQuery() == 1)
                             {
