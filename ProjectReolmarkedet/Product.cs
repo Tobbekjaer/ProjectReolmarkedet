@@ -42,7 +42,9 @@ namespace ProjectReolmarkedet
                 connection.Open();
 
                 // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
+
                 string insertQuery = "INSERT INTO PRODUCT (ProductName, Price) VALUES (@ProductName, @Price)"; 
+
 
                 using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
                     command.Parameters.AddWithValue("@ProductName", _productName);
@@ -50,9 +52,12 @@ namespace ProjectReolmarkedet
                     //command.Parameters.AddWithValue("@RackOwnerID", _rackOwnerID);
                     //command.Parameters.AddWithValue("@Rack", _rack);
 
+
                     if(command.ExecuteNonQuery() == 1) {
                         MessageBox.Show("1 row affected.");
                     }
+
+
                 }
 
             }

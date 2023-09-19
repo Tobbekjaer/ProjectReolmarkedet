@@ -54,14 +54,17 @@ namespace ProjectReolmarkedet
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO PRODUCT (Name, Phone, Email, BankDetails) VALUES (@Name, @Phone, @Email, @BankDetails)";
+                string insertQuery = "INSERT INTO RACKOWNER (Name, Phone, Email, BankDetails) VALUES (@Name, @Phone, @Email, @BankDetails)";
 
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Name", _name);
-                    command.Parameters.AddWithValue("@Price", _phone);
-                    command.Parameters.AddWithValue("@Price", _email);
-                    command.Parameters.AddWithValue("@Price", _bankDetails);
+                    command.Parameters.AddWithValue("@Phone", _phone);
+                    command.Parameters.AddWithValue("@Email", _email);
+                    command.Parameters.AddWithValue("@BankDetails", _bankDetails);
+
+                    // Execute the SQL command
+                    command.ExecuteNonQuery();
                 }
 
             }
