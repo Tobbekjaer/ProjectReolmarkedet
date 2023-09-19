@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows;
 
 namespace ProjectReolmarkedet
 {
@@ -44,8 +45,13 @@ namespace ProjectReolmarkedet
                 using (SqlCommand command = new SqlCommand(insertQuery, connection)) {
                     command.Parameters.AddWithValue("@ProductName", _productName);
                     command.Parameters.AddWithValue("@Price", _price);
+                    //command.Parameters.AddWithValue("@RackOwnerID", _rackOwnerID);
+                    //command.Parameters.AddWithValue("@Rack", _rack);
 
-                    
+                    if (command.ExecuteNonQuery() == 1) {
+                        MessageBox.Show("1 row affected.");
+                    }
+
                 }
 
             }
