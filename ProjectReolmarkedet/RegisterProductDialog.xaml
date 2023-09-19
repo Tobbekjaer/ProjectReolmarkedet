@@ -7,17 +7,20 @@
         mc:Ignorable="d"
         Title="RegisterProductDialog" Height="400" Width="600">
     <Grid>
-        <Label Content="Vare:" HorizontalAlignment="Left" Margin="73,85,0,0" VerticalAlignment="Top"/>
-        <Label Content="Pris:" HorizontalAlignment="Left" Margin="73,130,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbProduct" HorizontalAlignment="Left" Margin="133,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="133,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Afslut" HorizontalAlignment="Left" Margin="373,308,0,0" VerticalAlignment="Top" Height="38" Width="62"/>
+        <Label Content="Vare:" HorizontalAlignment="Left" Margin="100,188,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pris:" HorizontalAlignment="Left" Margin="100,225,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbProduct" HorizontalAlignment="Left" Margin="160,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="160,233,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAfslut" Content="Afslut" HorizontalAlignment="Left" Margin="373,308,0,0" VerticalAlignment="Top" Height="38" Width="62" Click="btnAfslut_Click"/>
         <Button Content="Fortryd" HorizontalAlignment="Left" Margin="479,308,0,0" VerticalAlignment="Top" Height="38" Width="62" Background="#FFE15353"/>
-        <TextBox HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
+        <TextBox x:Name="tbProductList" HorizontalAlignment="Left" Margin="373,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" Height="179"/>
         <Label Content="Produkter:" HorizontalAlignment="Left" Margin="373,54,0,0" VerticalAlignment="Top"/>
-        <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="154,227,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
-        <TextBox x:Name="tbRackOwnerID" HorizontalAlignment="Left" Margin="133,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <Label x:Name="lOwner" Content="Reollejer:" HorizontalAlignment="Left" Margin="73,0,0,0" VerticalAlignment="Center"/>
+        <Button Content="Tilføj produkt" HorizontalAlignment="Left" Margin="181,285,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
+        <TextBox x:Name="tbRackOwnerID" HorizontalAlignment="Left" Margin="160,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lOwner" Content="Reollejer:" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbRack" HorizontalAlignment="Left" Margin="160,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lOwner_Copy" Content="Reol:" HorizontalAlignment="Left" Margin="102,85,0,0" VerticalAlignment="Top"/>
+        <Button Content="Accepter" HorizontalAlignment="Left" Margin="181,127,0,0" VerticalAlignment="Top" Height="37" Width="78" Click="AddProduct_Click"/>
 
     </Grid>
 </Window>
