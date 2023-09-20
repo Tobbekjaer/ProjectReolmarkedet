@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectReolmarkedet"
         mc:Ignorable="d"
-        Title="ScanItem" Height="450" Width="800">
-    <Grid>
-        <Label Content="Barcode" HorizontalAlignment="Left" Height="36" Margin="72,122,0,0" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.5,0.5">
+        Title="ScanItem" Height="604" Width="374">
+    <Grid Margin="15,0,2,0">
+        <Label Content="Barcode" HorizontalAlignment="Left" Height="36" Margin="133,22,0,0" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -17,7 +17,10 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <TextBox Name ="tbProductId" HorizontalAlignment="Left" Height="29" Margin="159,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name ="tbProductId" HorizontalAlignment="Left" Height="36" Margin="56,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="tbSaleList" HorizontalAlignment="Left" Height="370" Margin="53,111,0,0" VerticalAlignment="Top" Width="224"/>
+        <Label Content="Pris i alt:" HorizontalAlignment="Left" Height="31" Margin="61,498,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBox Name="tbTotalPrice" HorizontalAlignment="Left" Height="36" Margin="147,494,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
 
     </Grid>
 </Window>
