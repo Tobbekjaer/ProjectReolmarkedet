@@ -21,10 +21,15 @@ namespace ProjectReolmarkedet
     /// </summary>
     public partial class ScanItem : Window
     {
+        ProductRepo productRepo;
+
         public ScanItem()
         {
+            productRepo = new ProductRepo();
             InitializeComponent();
         }
+
+
 
         public void DisplaySaleItems(string connectionString)
         {
@@ -44,11 +49,14 @@ namespace ProjectReolmarkedet
                         string line = "";
                         while (reader.Read())
                         {
-                            string productName = reader["ProductName"].ToString();
-                            int price = Convert.ToInt32(reader["Price"].ToString());
                             // Skal vi også have employee navn?
+                            Product product = new Product(
+                                reader["ProductName"].ToString(), 
+                                Convert.ToDouble(reader["Price"].ToString())
+                                );
+                            productRepo.AddProduct(product);
 
-                            line += $"Produkt: {productName}, Pris: {price}\n";
+                            line += $"Produkt: {product.ProductName}, Pris: {product.Price}\n";
 
                             tbSaleList.Text += line;
                         }
@@ -63,12 +71,23 @@ namespace ProjectReolmarkedet
             }
         }
 
+        public void TotalPrice()
+        {
+            double totalPrice = 0;
+            foreach (Product product in productRepo.GetProducts())
+            {
+                totalPrice += product.Price;
+                tbTotalPrice.Text = $"{totalPrice} DKK";
+            }
+        }
+
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
             // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
             IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
             string connectionString = config.GetConnectionString("MyDBConnection");
             DisplaySaleItems(connectionString);
+            TotalPrice();
         }
     }
 }
