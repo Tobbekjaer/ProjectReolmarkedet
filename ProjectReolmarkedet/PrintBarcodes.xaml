@@ -12,7 +12,7 @@
             <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Produkoversigt" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="tbOverview" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="219" Width="328" Margin="36,41,0,0" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="tbOverview" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="421" Width="328" Margin="36,41,0,0" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
