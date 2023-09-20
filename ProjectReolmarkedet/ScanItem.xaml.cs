@@ -44,7 +44,7 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
                     cmd.Parameters.AddWithValue("@ProductID", tbProductID.Text.Trim());
 
                     productIDs.Add(tbProductID.Text.Trim());
@@ -108,10 +108,10 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    SqlCommand cmd = new SqlCommand("DELETE * FROM PRODUCT WHERE ProductID = @ProductID", con);
                     foreach (string product in productIDs)
-                    {
-                        cmd.Parameters.AddWithValue("@ProductID", product);
+                    { 
+                        cmd.Parameters.AddWithValue("@ProductID", Convert.ToDouble(product));
                     }
 
                 }
@@ -126,6 +126,9 @@ namespace ProjectReolmarkedet
         private void btnEndSale_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
+            this.Close();
+            Receipt dialog = new Receipt();
+            dialog.ShowDialog();
         }
     }
 }
