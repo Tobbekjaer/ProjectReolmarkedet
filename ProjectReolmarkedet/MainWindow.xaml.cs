@@ -76,50 +76,57 @@ namespace ProjectReolmarkedet
                 
         }
 
-        
-
-        //if (dialog.ShowDialog() == true) {
-        //    Flowersort flowersort = new Flowersort(
-        //    dialog.tbName.Text,
-        //    Convert.ToInt32(dialog.tbProductionTime.Text),
-        //    Convert.ToInt32(dialog.tbHalfLife.Text),
-        //    Convert.ToDouble(dialog.tbSize.Text));
-
-        //    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-        //    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-        //    string connectionString = config.GetConnectionString("MyDBConnection");
-
-        //    // kaller metoden og Gemmer informationen i databsen
-        //    flowersort.InsertIntoDatabase(connectionString);
-
-        //    flowersorts.Add(flowersort);
-        //}
-        //AddToTextBlock();
+        private void Sale_Button(object sender, RoutedEventArgs e)
+        {
+            // Create an instance of the dialog window
+            ScanItem dialog = new ScanItem();
+            dialog.ShowDialog();
+        }
 
 
-        //public void AddToTextBlock()
-        //{
-            
-        //    RegisterProductDialog registerProductDialog = new RegisterProductDialog();
-        //    string line = ""; 
 
-        //    foreach(Product product in productRepo.Products) {
-        //        line += $"{product.ProductName}, {product.Price}\n";
-        //    }
+            //if (dialog.ShowDialog() == true) {
+            //    Flowersort flowersort = new Flowersort(
+            //    dialog.tbName.Text,
+            //    Convert.ToInt32(dialog.tbProductionTime.Text),
+            //    Convert.ToInt32(dialog.tbHalfLife.Text),
+            //    Convert.ToDouble(dialog.tbSize.Text));
 
-        //    registerProductDialog.tbProductList.Text = line;
-        //}
+            //    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+            //    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+            //    string connectionString = config.GetConnectionString("MyDBConnection");
 
-        //public void AddToTextBlock()
-        //{
-        //    string line = "";
+            //    // kaller metoden og Gemmer informationen i databsen
+            //    flowersort.InsertIntoDatabase(connectionString);
 
-        //    foreach (Flowersort flowersort in flowersorts) {
-        //        line += $"{flowersort.Name}, {flowersort.ProductionTime}, {flowersort.HalfLife}, {flowersort.Size}\n";
-        //    }
-        //    tbSorter.Text = line;
-        //}
+            //    flowersorts.Add(flowersort);
+            //}
+            //AddToTextBlock();
 
 
-    }
+            //public void AddToTextBlock()
+            //{
+
+            //    RegisterProductDialog registerProductDialog = new RegisterProductDialog();
+            //    string line = ""; 
+
+            //    foreach(Product product in productRepo.Products) {
+            //        line += $"{product.ProductName}, {product.Price}\n";
+            //    }
+
+            //    registerProductDialog.tbProductList.Text = line;
+            //}
+
+            //public void AddToTextBlock()
+            //{
+            //    string line = "";
+
+            //    foreach (Flowersort flowersort in flowersorts) {
+            //        line += $"{flowersort.Name}, {flowersort.ProductionTime}, {flowersort.HalfLife}, {flowersort.Size}\n";
+            //    }
+            //    tbSorter.Text = line;
+            //}
+
+
+        }
 }

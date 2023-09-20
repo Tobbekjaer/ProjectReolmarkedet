@@ -1,0 +1,23 @@
+﻿<Window x:Class="ProjectReolmarkedet.ScanItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectReolmarkedet"
+        mc:Ignorable="d"
+        Title="ScanItem" Height="450" Width="800">
+    <Grid>
+        <Label Content="Barcode" HorizontalAlignment="Left" Height="36" Margin="72,122,0,0" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <TextBox Name ="tbProductId" HorizontalAlignment="Left" Height="29" Margin="159,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" TextChanged="TextBox_TextChanged"/>
+
+    </Grid>
+</Window>
