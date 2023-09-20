@@ -23,9 +23,12 @@ namespace ProjectReolmarkedet
     {
         ProductRepo productRepo;
 
+        List<string> productIDs;
+
         public ScanItem()
         {
             productRepo = new ProductRepo();
+            productIDs = new List<string>();
             InitializeComponent();
         }
 
@@ -41,8 +44,10 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    SqlCommand cmd = new SqlCommand("SELECT FROM PRODUCT WHERE ProductID = @ProductID", con);
                     cmd.Parameters.AddWithValue("@ProductID", tbProductID.Text.Trim());
+
+                    productIDs.Add(tbProductID.Text.Trim());
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -59,15 +64,15 @@ namespace ProjectReolmarkedet
                             line += $"Produkt: {product.ProductName}, Pris: {product.Price}\n";
 
                             tbSaleList.Text += line;
-                        }
 
+                        }
                     }
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -88,6 +93,39 @@ namespace ProjectReolmarkedet
             string connectionString = config.GetConnectionString("MyDBConnection");
             DisplaySaleItems(connectionString);
             TotalPrice();
+        }
+
+        private void DeleteItem()
+        {
+            try
+            {
+                // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+                IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+                string connectionString = config.GetConnectionString("MyDBConnection");
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+
+                    con.Open();
+
+                    SqlCommand cmd = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    foreach (string product in productIDs)
+                    {
+                        cmd.Parameters.AddWithValue("@ProductID", product);
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void btnEndSale_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteItem();
         }
     }
 }
