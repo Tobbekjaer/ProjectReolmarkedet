@@ -8,7 +8,7 @@
         Title="Receipt" Height="500" Width="400">
     <Grid>
         <Label Content="Kvittering" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="tbReceipt" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="309" Width="336"/>
+        <TextBlock x:Name="tbReceipt" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="309" Width="336"/>
         <Button Content="Udskriv kvittering" Background="AntiqueWhite"  HorizontalAlignment="Center" Margin="0,396,0,0" VerticalAlignment="Top" Height="36" Width="124" Click="Button_Click"/>
 
     </Grid>
