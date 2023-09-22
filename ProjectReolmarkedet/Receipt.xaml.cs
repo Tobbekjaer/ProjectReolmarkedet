@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,21 @@ namespace ProjectReolmarkedet
     /// </summary>
     public partial class Receipt : Window
     {
-        public Receipt()
+        public Receipt(string tbReceipt)
         {
+            // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
+            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
+            string connectionString = config.GetConnectionString("MyDBConnection");
             InitializeComponent();
+            DisplayReceipt(tbReceipt);
+           
         }
+
+        // Displaying the receipt in the receipt dialog window
+        public void DisplayReceipt(string salesItem)
+        {
+            tbReceipt.Text += salesItem;
+        }
+
     }
 }

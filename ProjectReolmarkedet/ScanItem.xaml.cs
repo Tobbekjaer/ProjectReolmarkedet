@@ -23,7 +23,10 @@ namespace ProjectReolmarkedet
     {
         ProductRepo productRepo;
 
-        List<string> productIDs;
+        public List<string> productIDs;
+
+        // Variable to hold the receipt and call receipt dialogs constructor at inizialisation
+        private string tbReceiptText; 
 
         public ScanItem()
         {
@@ -31,7 +34,6 @@ namespace ProjectReolmarkedet
             productIDs = new List<string>();
             InitializeComponent();
         }
-
 
 
         public void DisplaySaleItems(string connectionString)
@@ -54,7 +56,7 @@ namespace ProjectReolmarkedet
                         string line = "";
                         while (reader.Read())
                         {
-                            // Skal vi også have employee navn?
+
                             Product product = new Product(
                                 reader["ProductName"].ToString(), 
                                 Convert.ToDouble(reader["Price"].ToString())
@@ -108,11 +110,45 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("DELETE * FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    // Command to delete the product from PRODUCT 
+                    SqlCommand cmd = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    // Command to display product info in Receipt window
+                    SqlCommand cmdRead = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
+
+                    // Variables to hold product info
+                    string productName;
+                    int price, rackNumber, rackOwner;
+
+                    string line = "";
+
+                    // Foreach productID add it to the tbReceipt
                     foreach (string product in productIDs)
-                    { 
-                        cmd.Parameters.AddWithValue("@ProductID", Convert.ToDouble(product));
+                    {
+                        cmdRead.Parameters.AddWithValue("@ProductID", product);
+
+                        using (SqlDataReader reader = cmdRead.ExecuteReader()) {
+
+                            while (reader.Read()) {
+
+                                productName = reader["ProductName"].ToString();
+                                price = Convert.ToInt32(reader["Price"].ToString());
+                                rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
+                                rackOwner = Convert.ToInt32(reader["RackOwnerID"].ToString());
+
+                                line += $"Produkt: {productName}, Pris: {price} kr., Reol: {price}, ReollejerID: {rackNumber}\n";
+                                
+                            }
+
+                        }
+
+                        cmd.Parameters.AddWithValue("@ProductID", product);
+
+                        if(cmd.ExecuteNonQuery() == 1) {
+                            MessageBox.Show("1 row effected.");
+                        }
                     }
+                    // Adding all receipt info
+                    tbReceiptText = line; 
 
                 }
 
@@ -127,8 +163,10 @@ namespace ProjectReolmarkedet
         {
             DeleteItem();
             this.Close();
-            Receipt dialog = new Receipt();
-            dialog.ShowDialog();
+            // Opening receipt dialog with the receipt text
+            Receipt receiptDialog = new Receipt(tbReceiptText);
+            receiptDialog.ShowDialog();
         }
+
     }
 }

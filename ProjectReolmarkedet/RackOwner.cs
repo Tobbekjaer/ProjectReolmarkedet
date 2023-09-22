@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProjectReolmarkedet
 {
@@ -63,8 +64,10 @@ namespace ProjectReolmarkedet
                     command.Parameters.AddWithValue("@Email", _email);
                     command.Parameters.AddWithValue("@BankDetails", _bankDetails);
 
-                    // Execute the SQL command
-                    command.ExecuteNonQuery();
+                    if (command.ExecuteNonQuery() == 1) {
+                        MessageBox.Show("1 row effected.");
+
+                    }
                 }
 
             }

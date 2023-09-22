@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectReolmarkedet"
         mc:Ignorable="d"
-        Title="Receipt" Height="450" Width="800">
+        Title="Receipt" Height="500" Width="400">
     <Grid>
-        
+        <Label Content="Kvittering" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tbReceipt" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="360" Width="336"/>
+
     </Grid>
 </Window>
