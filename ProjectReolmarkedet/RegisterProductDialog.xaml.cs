@@ -107,6 +107,8 @@ namespace ProjectReolmarkedet
         private void btnAfslut_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            PrintBarcodes dialog = new PrintBarcodes();
+            dialog.ShowDialog();
         }
 
         private void ClearProduct()

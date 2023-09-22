@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProjectReolmarkedet
 {
@@ -54,9 +55,11 @@ namespace ProjectReolmarkedet
                     command.Parameters.AddWithValue("@Name", _name);
                     command.Parameters.AddWithValue("@Phone", _phone);
                     command.Parameters.AddWithValue("@Email", _email);
+                    
+                    if(command.ExecuteNonQuery() == 1) {
+						MessageBox.Show("1 row effected.");
 
-                    // Execute the SQL command
-                    command.ExecuteNonQuery();
+					}
                 }
 
             }

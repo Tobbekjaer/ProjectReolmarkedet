@@ -1,0 +1,18 @@
+﻿<Window x:Class="ProjectReolmarkedet.PrintBarcodes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectReolmarkedet"
+        mc:Ignorable="d"
+        Title="PrintBarcodes" Height="500" Width="400">
+    <Grid Margin="0,0,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Produkoversigt" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="tbOverview" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="421" Width="328" Margin="36,41,0,0" Grid.ColumnSpan="2"/>
+
+    </Grid>
+</Window>
