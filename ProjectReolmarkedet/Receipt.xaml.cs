@@ -37,5 +37,9 @@ namespace ProjectReolmarkedet
             tbReceipt.Text += salesItem;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
