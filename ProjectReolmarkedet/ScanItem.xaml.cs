@@ -146,6 +146,9 @@ namespace ProjectReolmarkedet
                         }
                         // Deletes the sales item from the database
                         cmdDelete.Parameters.AddWithValue("@ProductID", product);
+                        if(cmdDelete.ExecuteNonQuery() == productIDs.Count) {
+                            MessageBox.Show($"{productIDs.Count} row(s) effected."); 
+                        }
                        
                     }
                     // Adding all receipt info
