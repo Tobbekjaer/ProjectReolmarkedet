@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ScanItem" Height="636" Width="436">
     <Grid Margin="15,0,0,0">
-        <Label Content="Stregkode" HorizontalAlignment="Left" Height="36" Margin="173,27,0,0" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Stregkode:" HorizontalAlignment="Left" Height="36" Margin="93,25,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>

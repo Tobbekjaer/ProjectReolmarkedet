@@ -35,7 +35,7 @@ namespace ProjectReolmarkedet
             InitializeComponent();
         }
 
-
+        // Gets the scanned sales item from the database and displays it in the tekstbox
         public void DisplaySaleItems(string connectionString)
         {
 
@@ -78,6 +78,7 @@ namespace ProjectReolmarkedet
             }
         }
 
+        // Adding prices of each item together as a price total
         public void TotalPrice()
         {
             double totalPrice = 0;
@@ -88,6 +89,7 @@ namespace ProjectReolmarkedet
             }
         }
 
+        // When an item is scanned the item is displayed and the price is added to the price total
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
             // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
@@ -97,6 +99,7 @@ namespace ProjectReolmarkedet
             TotalPrice();
         }
 
+        // Deletes sales items from database and displaying sold items in the receipt window
         private void DeleteItem()
         {
             try
@@ -111,7 +114,7 @@ namespace ProjectReolmarkedet
                     con.Open();
 
                     // Command to delete the product from PRODUCT 
-                    SqlCommand cmd = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+                    SqlCommand cmdDelete = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
                     // Command to display product info in Receipt window
                     SqlCommand cmdRead = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
 
@@ -121,9 +124,10 @@ namespace ProjectReolmarkedet
 
                     string line = "";
 
-                    // Foreach productID add it to the tbReceipt
+                    // Foreach productID in productIDs list, add it to the tbReceipt string
                     foreach (string product in productIDs)
                     {
+                        // Reads the sales item with curtain ProductID from database
                         cmdRead.Parameters.AddWithValue("@ProductID", product);
 
                         using (SqlDataReader reader = cmdRead.ExecuteReader()) {
@@ -140,12 +144,9 @@ namespace ProjectReolmarkedet
                             }
 
                         }
-
-                        cmd.Parameters.AddWithValue("@ProductID", product);
-
-                        if(cmd.ExecuteNonQuery() == 1) {
-                            MessageBox.Show("1 row effected.");
-                        }
+                        // Deletes the sales item from the database
+                        cmdDelete.Parameters.AddWithValue("@ProductID", product);
+                       
                     }
                     // Adding all receipt info
                     tbReceiptText = line; 
@@ -161,9 +162,10 @@ namespace ProjectReolmarkedet
 
         private void btnEndSale_Click(object sender, RoutedEventArgs e)
         {
+            // Call delete item to delete sales items from database and displaying sold items in the receipt window
             DeleteItem();
             this.Close();
-            // Opening receipt dialog with the receipt text
+            // Instantiating and opening receipt dialog with the receipt text
             Receipt receiptDialog = new Receipt(tbReceiptText);
             receiptDialog.ShowDialog();
         }
