@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="200" Width="400">
     <Grid>
-        <Label Content="Velkommen til Reolmarkedet!" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top"/>
-        <Button Content="Opret produkt" HorizontalAlignment="Left" Margin="70,112,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Start salg" HorizontalAlignment="Left" Margin="255,112,0,0" VerticalAlignment="Top" Click="Sale_Button"/> 
+        <Label Content="Velkommen til Reolmarkedet!" FontSize="20" FontWeight="SemiBold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top"/>
+        <Button Content="Opret produkt" Background="Cornsilk"  HorizontalAlignment="Left" Margin="70,112,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Start salg" Background="Aquamarine"  HorizontalAlignment="Left" Margin="255,112,0,0" VerticalAlignment="Top" Click="Sale_Button"/> 
 
     </Grid>
 </Window>
