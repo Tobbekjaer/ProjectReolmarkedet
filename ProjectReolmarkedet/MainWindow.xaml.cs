@@ -30,7 +30,7 @@ namespace ProjectReolmarkedet
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RegisterProduct_Button(object sender, RoutedEventArgs e)
         {
             // Create an instance of the dialog window
             RegisterProductDialog dialog = new RegisterProductDialog();
