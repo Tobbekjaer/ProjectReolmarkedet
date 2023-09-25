@@ -49,7 +49,10 @@ namespace ProjectReolmarkedet
                     SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
                     cmd.Parameters.AddWithValue("@ProductID", tbProductID.Text.Trim());
 
-                    productIDs.Add(tbProductID.Text.Trim());
+                    // Only add the productID to the list if the productID exists in the database 
+                    if(cmd.ExecuteScalar() != null) {
+                        productIDs.Add(tbProductID.Text.Trim());
+                    }
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -113,20 +116,16 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    // Command to delete the product from PRODUCT 
-                    SqlCommand cmdDelete = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
-                    // Command to display product info in Receipt window
-                    SqlCommand cmdRead = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
-
-                    // Variables to hold product info
-                    string productName;
-                    int price, rackNumber, rackOwner;
-
                     string line = "";
 
                     // Foreach productID in productIDs list, add it to the tbReceipt string
                     foreach (string product in productIDs)
                     {
+                        // Command to delete the product from PRODUCT 
+                        SqlCommand cmdDelete = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+                        // Command to display product info in Receipt window
+                        SqlCommand cmdRead = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
+
                         // Reads the sales item with curtain ProductID from database
                         cmdRead.Parameters.AddWithValue("@ProductID", product);
 
@@ -134,20 +133,18 @@ namespace ProjectReolmarkedet
 
                             while (reader.Read()) {
 
-                                productName = reader["ProductName"].ToString();
-                                price = Convert.ToInt32(reader["Price"].ToString());
-                                rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
-                                rackOwner = Convert.ToInt32(reader["RackOwnerID"].ToString());
+                                // Variables to hold product info
+                                string productName = reader["ProductName"].ToString();
+                                int price = Convert.ToInt32(reader["Price"].ToString());
+                                int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
+                                int rackOwner = Convert.ToInt32(reader["RackOwnerID"].ToString());
 
-                                line += $"Produkt: {productName}, Pris: {price} kr., Reol: {price}, ReollejerID: {rackNumber}\n";
-                                
+                                line += $"Produkt: {productName}, Pris: {price} kr., Reol: {rackNumber}, ReollejerID: {rackOwner}\n";
+
+                                // Deletes the sales item from the database
+                                cmdDelete.Parameters.AddWithValue("@ProductID", product);
                             }
 
-                        }
-                        // Deletes the sales item from the database
-                        cmdDelete.Parameters.AddWithValue("@ProductID", product);
-                        if(cmdDelete.ExecuteNonQuery() == productIDs.Count) {
-                            MessageBox.Show($"{productIDs.Count} row(s) effected."); 
                         }
                        
                     }
