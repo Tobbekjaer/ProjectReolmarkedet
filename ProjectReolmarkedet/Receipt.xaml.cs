@@ -28,7 +28,6 @@ namespace ProjectReolmarkedet
             string connectionString = config.GetConnectionString("MyDBConnection");
             InitializeComponent();
             DisplayReceipt(tbReceipt);
-           
         }
 
         // Displaying the receipt in the receipt dialog window

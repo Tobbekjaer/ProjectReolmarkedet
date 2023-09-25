@@ -36,7 +36,7 @@ namespace ProjectReolmarkedet
         }
 
         // Gets the scanned sales item from the database and displays it in the tekstbox
-        public void DisplaySaleItems(string connectionString)
+        public void DisplaySaleItems(string connectionString, string productID)
         {
 
             try
@@ -47,11 +47,11 @@ namespace ProjectReolmarkedet
                     con.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
-                    cmd.Parameters.AddWithValue("@ProductID", tbProductID.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ProductID", productID);
 
                     // Only add the productID to the list if the productID exists in the database 
                     if(cmd.ExecuteScalar() != null) {
-                        productIDs.Add(tbProductID.Text.Trim());
+                        productIDs.Add(productID);
                     }
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -98,7 +98,7 @@ namespace ProjectReolmarkedet
             // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
             IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
             string connectionString = config.GetConnectionString("MyDBConnection");
-            DisplaySaleItems(connectionString);
+            DisplaySaleItems(connectionString, tbProductID.Text.Trim());
             TotalPrice();
         }
 
@@ -116,13 +116,14 @@ namespace ProjectReolmarkedet
 
                     con.Open();
 
-                    string line = "";
+                    string line = "";               
 
                     // Foreach productID in productIDs list, add it to the tbReceipt string
                     foreach (string product in productIDs)
                     {
                         // Command to delete the product from PRODUCT 
                         SqlCommand cmdDelete = new SqlCommand("DELETE FROM PRODUCT WHERE ProductID = @ProductID", con);
+
                         // Command to display product info in Receipt window
                         SqlCommand cmdRead = new SqlCommand("SELECT * FROM PRODUCT WHERE ProductID = @ProductID", con);
 
@@ -141,16 +142,16 @@ namespace ProjectReolmarkedet
 
                                 line += $"Produkt: {productName}, Pris: {price} kr., Reol: {rackNumber}, ReollejerID: {rackOwner}\n";
 
-                                // Deletes the sales item from the database
-                                cmdDelete.Parameters.AddWithValue("@ProductID", product);
                             }
-
                         }
-                       
+                        // Set the parameter value for cmdDelete based on the current product
+                        cmdDelete.Parameters.AddWithValue("@ProductID", product);
+                        cmdDelete.ExecuteNonQuery();
+
                     }
                     // Adding all receipt info
                     tbReceiptText = line; 
-
+                 
                 }
 
             }
