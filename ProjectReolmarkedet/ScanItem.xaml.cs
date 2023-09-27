@@ -38,7 +38,7 @@ namespace ProjectReolmarkedet
         // Gets the scanned sales item from the database and displays it in the tekstbox
         public void DisplaySaleItems(string connectionString, string productID)
         {
-
+            
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
