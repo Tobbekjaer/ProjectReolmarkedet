@@ -35,33 +35,39 @@ namespace ProjectReolmarkedet
         public void DisplayBarcodes(string connectionString)
         {
 
-            try {
-                using (SqlConnection con = new SqlConnection(connectionString)) {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
 
                     con.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT", con);
 
-                    using (SqlDataReader reader = cmd.ExecuteReader()) {
-                       
-                            while (reader.Read()) {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
 
-                                string line = "";
+                        while (reader.Read())
+                        {
 
-                                int productID = Convert.ToInt32(reader["ProductID"].ToString());
-                                string productName = reader["ProductName"].ToString();
-                                int price = Convert.ToInt32(reader["Price"].ToString());
-                                int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
+                            string line = "";
 
-                                line += $"Stregkode: {productID}, Produkt: {productName}, Pris: {price}, Reol: {rackNumber}\n";
-                               
-                                tbOverview.Text += line;
-                            }
+                            int productID = Convert.ToInt32(reader["ProductID"].ToString());
+                            string productName = reader["ProductName"].ToString();
+                            int price = Convert.ToInt32(reader["Price"].ToString());
+                            int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
+
+                            line += $"Stregkode: {productID}, Produkt: {productName}, Pris: {price}, Reol: {rackNumber}\n";
+
+                            tbOverview.Text += line;
+                        }
 
                     }
                 }
 
-            } catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
