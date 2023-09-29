@@ -21,7 +21,6 @@ namespace ProjectReolmarkedet
     public partial class PrintBarcodes : Window
     {
         private List<int> productIDs; // List to store the ProductIDs
-        private int productID; // Single ProductID (not used in this code)
         private string connectionString; // Connection string for database
 
         public PrintBarcodes(List<int> productIDs)
@@ -35,7 +34,7 @@ namespace ProjectReolmarkedet
             InitializeComponent();
             DisplayBarcodeDetails(); // Display barcode details when the window is initialized
         }
-
+        
         public void DisplayBarcodeDetails()
         {
             try

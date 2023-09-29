@@ -35,7 +35,6 @@ namespace ProjectReolmarkedet
             // Create an instance of the dialog window
             RegisterProductDialog dialog = new RegisterProductDialog();
             dialog.ShowDialog();
-                
         }
 
         private void Sale_Button(object sender, RoutedEventArgs e)
