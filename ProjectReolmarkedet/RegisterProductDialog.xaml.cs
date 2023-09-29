@@ -66,9 +66,12 @@ namespace ProjectReolmarkedet
                     con.Open();
 
                     // Create an INSERT command to add the product to the database and retrieve the generated ProductID
-                    SqlCommand cmd = new SqlCommand("INSERT INTO PRODUCT (ProductName, Price) VALUES (@ProductName, @Price); SELECT SCOPE_IDENTITY();", con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO PRODUCT (ProductName, Price, RackNumber, RackOwnerID) " +
+                        "VALUES (@ProductName, @Price, @RackNumber, @RackOwnerID); SELECT SCOPE_IDENTITY();", con);
                     cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
                     cmd.Parameters.AddWithValue("@Price", product.Price);
+                    cmd.Parameters.AddWithValue("@RackNumber", product.Rack);
+                    cmd.Parameters.AddWithValue("@RackOwnerID", product.RackOwnerID);
 
                     // Execute the command and get the generated ProductID
                     int generatedProductID = Convert.ToInt32(cmd.ExecuteScalar());
@@ -87,10 +90,8 @@ namespace ProjectReolmarkedet
         // Helper method to check if the RackOwnerID exists in the database
         private bool RackOwnerExists(int rackOwnerID)
         {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
+            try {
+                using (SqlConnection con = new SqlConnection(connectionString)) {
                     con.Open();
                     SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM RackOwner WHERE RackOwnerID = @RackOwnerID", con);
                     cmd.Parameters.AddWithValue("@RackOwnerID", rackOwnerID);
@@ -98,8 +99,7 @@ namespace ProjectReolmarkedet
                     return count > 0;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show("An error occurred while checking RackOwnerID existence: " + ex.Message);
                 return false;
             }
@@ -118,7 +118,7 @@ namespace ProjectReolmarkedet
 
                 // Parse input fields to create a new Product instance
                 int rackOwnerID = Convert.ToInt32(tbRackOwnerID.Text);
-                if (!RackOwnerExists(rackOwnerID))
+                if (RackOwnerExists(rackOwnerID))
                 {
                     MessageBox.Show("Den indtastede RackOwnerID findes ikke i databasen.");
                     return;
