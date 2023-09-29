@@ -11,28 +11,25 @@ namespace ProjectReolmarkedet
 {
     public class Product
     {
-        // Properties
-        private string _productName;
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public double Price { get; set; }
+        public int RackOwnerID { get; set; }
+        public int Rack { get; set; }
 
-        public string ProductName
+        // Constructor that accepts all four arguments
+        public Product(string productName, double price, int rackOwnerID, int rack)
         {
-            get { return _productName; }
-            set { _productName = value; }
-        }
-        private double _price;
-
-        public double Price
-        {
-            get { return _price; }
-            set { _price = value; }
-        }
-
-        // Constructor
-        public Product(string productName, double price)
-        {
-            _productName = productName;
-            _price = price;
+            ProductName = productName;
+            Price = price;
+            RackOwnerID = rackOwnerID;
+            Rack = rack;
         }
 
+        // Default constructor
+        public Product()
+        {
+        }
     }
+
 }
