@@ -93,10 +93,10 @@ namespace ProjectReolmarkedet
             try {
                 using (SqlConnection con = new SqlConnection(connectionString)) {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM RackOwner WHERE RackOwnerID = @RackOwnerID", con);
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM RACK_OWNER WHERE RackOwnerID = @RackOwnerID", con);
                     cmd.Parameters.AddWithValue("@RackOwnerID", rackOwnerID);
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
+                    return true;
                 }
             }
             catch (Exception ex) {
@@ -118,7 +118,7 @@ namespace ProjectReolmarkedet
 
                 // Parse input fields to create a new Product instance
                 int rackOwnerID = Convert.ToInt32(tbRackOwnerID.Text);
-                if (RackOwnerExists(rackOwnerID))
+                if (!RackOwnerExists(rackOwnerID))
                 {
                     MessageBox.Show("Den indtastede RackOwnerID findes ikke i databasen.");
                     return;
@@ -133,6 +133,8 @@ namespace ProjectReolmarkedet
 
                 // Add the product to the database
                 AddProductToDatabase(product);
+                // Add the product to the repository
+                productRepo.AddProduct(product);
             }
             catch (Exception ex)
             {
