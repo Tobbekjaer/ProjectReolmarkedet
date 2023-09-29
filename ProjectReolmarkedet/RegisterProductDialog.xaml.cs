@@ -37,11 +37,9 @@ namespace ProjectReolmarkedet
 
         private void ClearProduct()
         {
-            // Clear input fields
+            // Clear product input fields
             tbProduct.Clear();
             tbPrice.Clear();
-            tbRackOwnerID.Clear();
-            tbRack.Clear();
         }
 
         private void AddToTextBlock()
