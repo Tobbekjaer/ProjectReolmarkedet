@@ -18,105 +18,177 @@ using System.Xml.Linq;
 
 namespace ProjectReolmarkedet
 {
-    /// <summary>
-    /// Interaction logic for RegisterProductDialog.xaml
-    /// </summary>
     public partial class RegisterProductDialog : Window
     {
+        ProductRepo productRepo; // Instance of ProductRepo to manage products
+        private string connectionString; // Connection string for database
+        private List<int> productIDs = new List<int>(); // List to store generated ProductIDs
 
-        ProductRepo productRepo;
         public RegisterProductDialog()
         {
-            productRepo = new ProductRepo();
+            productRepo = new ProductRepo(); // Initialize the ProductRepo instance
+
+            // Load the database connection string from appsettings.json
+            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            connectionString = config.GetConnectionString("MyDBConnection");
+
             InitializeComponent();
         }
 
-        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        private void ClearProduct()
         {
-            // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-            try
-            {
-                if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) ||
-                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text))) 
-                    {        
-                    MessageBox.Show("Alle felter skal være udfyldt");
-                }
-
-                    // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                    Product product = new Product(
-                        tbProduct.Text,
-                        Convert.ToDouble(tbPrice.Text)
-                        );
-                    productRepo.AddProduct(product);
-                    
-                    // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-                    IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-                    string connectionString = config.GetConnectionString("MyDBConnection");
-                    
-                    
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-
-                        // Bør også indeholde CustomerID, RackNumber og RackOwnerID, når man opretter et produkt? 
-                        string insertQuery = "INSERT INTO PRODUCT (ProductName, Price, RackOwnerID, RackNumber) VALUES (@ProductName, @Price, @RackOwnerID, @RackNumber)";
-
-                        using (SqlCommand command = new SqlCommand(insertQuery, connection))
-                        {
-                            command.Parameters.AddWithValue("@ProductName", tbProduct.Text.Trim());
-                            command.Parameters.AddWithValue("@Price", Convert.ToDouble(tbPrice.Text.Trim()));
-                            command.Parameters.AddWithValue("@RackOwnerID", Convert.ToInt32(tbRackOwnerID.Text.Trim()));
-                            command.Parameters.AddWithValue("@RackNumber", Convert.ToInt32(tbRack.Text.Trim()));
-
-                            if (command.ExecuteNonQuery() == 1)
-                            {
-                                MessageBox.Show("1 row affected.");
-                            }
-                        }
-
-                    } 
-
-            }
-            catch (Exception ex)
-            {
-                // Handle the exception here, e.g. display an error message to the user
-                MessageBox.Show("Der opstod en fejl: " + ex.Message);
-            }
-            // When we click "Tilføj Product" the text boxes for "Vare" and "Pris" will clear
-            finally 
-            {
-                ClearProduct();
-                AddToTextBlock();
-            }
+            // Clear input fields
+            tbProduct.Clear();
+            tbPrice.Clear();
+            tbRackOwnerID.Clear();
+            tbRack.Clear();
         }
 
-
-
-        public void AddToTextBlock()
+        private void AddToTextBlock()
         {
-
             string line = "";
 
-            foreach (Product product in productRepo.Products) {
+            // Generate a formatted string with product information and display it in the text block
+            foreach (Product product in productRepo.Products)
+            {
                 line += $"{product.ProductName}, {product.Price}\n";
             }
 
             tbProductList.Text = line;
         }
 
+        private void AddProductToDatabase(Product product)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    // Create an INSERT command to add the product to the database and retrieve the generated ProductID
+                    SqlCommand cmd = new SqlCommand("INSERT INTO PRODUCT (ProductName, Price) VALUES (@ProductName, @Price); SELECT SCOPE_IDENTITY();", con);
+                    cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
+                    cmd.Parameters.AddWithValue("@Price", product.Price);
+
+                    // Execute the command and get the generated ProductID
+                    int generatedProductID = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // Optionally, you can store the generatedProductID or perform other actions here
+
+                    productIDs.Add(generatedProductID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while adding the product to the database: " + ex.Message);
+            }
+        }
+
+        // Helper method to check if the RackOwnerID exists in the database
+        private bool RackOwnerExists(int rackOwnerID)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM RackOwner WHERE RackOwnerID = @RackOwnerID", con);
+                    cmd.Parameters.AddWithValue("@RackOwnerID", rackOwnerID);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while checking RackOwnerID existence: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Convert.ToString(tbProduct.Text)) || string.IsNullOrEmpty(Convert.ToString(tbPrice.Text)) ||
+                    string.IsNullOrEmpty(Convert.ToString(tbRackOwnerID.Text)) || string.IsNullOrEmpty(Convert.ToString(tbRack.Text)))
+                {
+                    MessageBox.Show("Alle felter skal være udfyldt");
+                    return;
+                }
+
+                // Parse input fields to create a new Product instance
+                int rackOwnerID = Convert.ToInt32(tbRackOwnerID.Text);
+                if (!RackOwnerExists(rackOwnerID))
+                {
+                    MessageBox.Show("Den indtastede RackOwnerID findes ikke i databasen.");
+                    return;
+                }
+
+                Product product = new Product(
+                    tbProduct.Text,
+                    Convert.ToDouble(tbPrice.Text),
+                    rackOwnerID,
+                    Convert.ToInt32(tbRack.Text)
+                );
+
+                // Add the product to the database
+                AddProductToDatabase(product);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Der opstod en fejl: " + ex.Message);
+            }
+            finally
+            {
+                ClearProduct();
+                AddToTextBlock();
+            }
+        }
+
+        private int GetGeneratedProductID()
+        {
+            int generatedProductID = -1;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT IDENT_CURRENT('PRODUCT') AS LastProductID", con);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            generatedProductID = Convert.ToInt32(reader["LastProductID"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return generatedProductID;
+        }
+
         private void btnAfslut_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            PrintBarcodes dialog = new PrintBarcodes();
-            dialog.ShowDialog();
-        }
+            try
+            {
+                this.Close();
 
-        private void ClearProduct()
-        {
-            tbProduct.Clear();
-            tbPrice.Clear();
+                // Open the PrintBarcodes window and pass the list of generated ProductIDs
+                PrintBarcodes dialog = new PrintBarcodes(productIDs);
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
         }
-
-        
     }
 }
+

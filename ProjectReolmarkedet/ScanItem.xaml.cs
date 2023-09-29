@@ -22,8 +22,8 @@ namespace ProjectReolmarkedet
     public partial class ScanItem : Window
     {
         ProductRepo productRepo;
+        private List<string> productIDs; // Declare it here
 
-        public List<string> productIDs;
 
         // Variable to hold the receipt and call receipt dialogs constructor at inizialisation
         private string tbReceiptText; 
@@ -31,7 +31,7 @@ namespace ProjectReolmarkedet
         public ScanItem()
         {
             productRepo = new ProductRepo();
-            productIDs = new List<string>();
+            productIDs = new List<string>(); // Initialize it here
             InitializeComponent();
         }
 
@@ -61,10 +61,13 @@ namespace ProjectReolmarkedet
                         {
 
                             Product product = new Product(
-                                reader["ProductName"].ToString(), 
-                                Convert.ToDouble(reader["Price"].ToString())
-                                );
+                            reader["ProductName"].ToString(),
+                            Convert.ToDouble(reader["Price"].ToString()),
+                            Convert.ToInt32(reader["RackOwnerID"].ToString()), // Assuming this field is in your database
+                            Convert.ToInt32(reader["RackNumber"].ToString())   // Assuming this field is in your database
+                            );
                             productRepo.AddProduct(product);
+
 
                             line += $"Produkt: {product.ProductName}, Pris: {product.Price}\n";
 

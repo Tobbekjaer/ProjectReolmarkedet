@@ -18,55 +18,60 @@ using System.Windows.Shapes;
 
 namespace ProjectReolmarkedet
 {
-    /// <summary>
-    /// Interaction logic for PrintBarcodes.xaml
-    /// </summary>
     public partial class PrintBarcodes : Window
     {
-        public PrintBarcodes()
+        private List<int> productIDs; // List to store the ProductIDs
+        private int productID; // Single ProductID (not used in this code)
+        private string connectionString; // Connection string for database
+
+        public PrintBarcodes(List<int> productIDs)
         {
-            // Configurerer Databasen. husk at bruge de 3 using statements; System.Data; Microsoft.Extensions.Configuration.Json; Microsoft.Extensions.Configuration;
-            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // Husk at selve json filen skal have navnet appsettings.json
-            string connectionString = config.GetConnectionString("MyDBConnection");
+            this.productIDs = productIDs; // Initialize the list of ProductIDs from the constructor parameter
+
+            // Load the database connection string from appsettings.json
+            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            connectionString = config.GetConnectionString("MyDBConnection");
+
             InitializeComponent();
-            DisplayBarcodes(connectionString);
+            DisplayBarcodeDetails(); // Display barcode details when the window is initialized
         }
 
-        public void DisplayBarcodes(string connectionString)
+        public void DisplayBarcodeDetails()
         {
-
-            try {
-                using (SqlConnection con = new SqlConnection(connectionString)) {
-
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUCT", con);
+                    // Build a SQL query to retrieve details for products with specified ProductIDs
+                    string query = "SELECT * FROM PRODUCT WHERE ProductID IN (" +
+                                 string.Join(",", productIDs) + ")";
+                    SqlCommand cmd = new SqlCommand(query, con);
 
-                    using (SqlDataReader reader = cmd.ExecuteReader()) {
-                       
-                            while (reader.Read()) {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string line = "";
 
-                                string line = "";
+                            int retrievedProductID = Convert.ToInt32(reader["ProductID"].ToString());
+                            string productName = reader["ProductName"].ToString();
+                            double price = Convert.ToDouble(reader["Price"].ToString());
+                            int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
 
-                                int productID = Convert.ToInt32(reader["ProductID"].ToString());
-                                string productName = reader["ProductName"].ToString();
-                                int price = Convert.ToInt32(reader["Price"].ToString());
-                                int rackNumber = Convert.ToInt32(reader["RackNumber"].ToString());
+                            // Format and display product details
+                            line += $"Stregkode: {retrievedProductID}, Produkt: {productName}, Pris: {price}, Reol: {rackNumber}\n";
 
-                                line += $"Stregkode: {productID}, Produkt: {productName}, Pris: {price}, Reol: {rackNumber}\n";
-                               
-                                tbOverview.Text += line;
-                            }
-
+                            tbOverview.Text += line; // Append the details to the text block
+                        }
                     }
                 }
-
-            } catch (Exception e){
-                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("An error occurred: " + e.Message);
             }
         }
-
-
-
     }
 }
