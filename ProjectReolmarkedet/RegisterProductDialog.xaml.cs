@@ -133,6 +133,7 @@ namespace ProjectReolmarkedet
 
                 // Add the product to the database
                 AddProductToDatabase(product);
+
                 // Add the product to the repository
                 productRepo.AddProduct(product);
             }
