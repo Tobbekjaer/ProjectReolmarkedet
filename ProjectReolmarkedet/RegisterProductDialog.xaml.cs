@@ -77,7 +77,6 @@ namespace ProjectReolmarkedet
                     int generatedProductID = Convert.ToInt32(cmd.ExecuteScalar());
 
                     // Optionally, you can store the generatedProductID or perform other actions here
-
                     productIDs.Add(generatedProductID);
                 }
             }
@@ -99,8 +98,8 @@ namespace ProjectReolmarkedet
                     return true;
                 }
             }
-            catch (Exception ex) {
-                MessageBox.Show("An error occurred while checking RackOwnerID existence: " + ex.Message);
+            catch {
+                MessageBox.Show("Den indtastede RackOwnerID findes ikke i databasen.");
                 return false;
             }
         }
@@ -116,26 +115,21 @@ namespace ProjectReolmarkedet
                     return;
                 }
 
-                // Parse input fields to create a new Product instance
-                int rackOwnerID = Convert.ToInt32(tbRackOwnerID.Text);
-                if (!RackOwnerExists(rackOwnerID))
-                {
-                    MessageBox.Show("Den indtastede RackOwnerID findes ikke i databasen.");
-                    return;
-                }
-
                 Product product = new Product(
                     tbProduct.Text,
                     Convert.ToDouble(tbPrice.Text),
-                    rackOwnerID,
+                    Convert.ToInt32(tbRackOwnerID.Text),
                     Convert.ToInt32(tbRack.Text)
                 );
 
-                // Add the product to the database
-                AddProductToDatabase(product);
+                if(RackOwnerExists(Convert.ToInt32(tbRackOwnerID.Text)) == true) {
+                    // Add the product to the database
+                    AddProductToDatabase(product);
 
-                // Add the product to the repository
-                productRepo.AddProduct(product);
+                    // Add the product to the repository
+                    productRepo.AddProduct(product);
+                }
+               
             }
             catch (Exception ex)
             {
@@ -146,35 +140,6 @@ namespace ProjectReolmarkedet
                 ClearProduct();
                 AddToTextBlock();
             }
-        }
-
-        private int GetGeneratedProductID()
-        {
-            int generatedProductID = -1;
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-
-                    SqlCommand cmd = new SqlCommand("SELECT IDENT_CURRENT('PRODUCT') AS LastProductID", con);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            generatedProductID = Convert.ToInt32(reader["LastProductID"]);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            return generatedProductID;
         }
 
         private void btnAfslut_Click(object sender, RoutedEventArgs e)
@@ -192,6 +157,7 @@ namespace ProjectReolmarkedet
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+
     }
 }
 
